@@ -97,9 +97,24 @@ const view = function(s, states) {
   ));
 
   if (states.length > 0) {
-    showGraph(states, edges);
-  }
 
+    const graph = {};
+    graph.nodes = states.map(s => {
+      console.log(s.state)
+      return {
+        id: s.state,
+        distance: s.moves.length
+      };
+    });
+    graph.links = edges.map(e => {
+      return {
+        source: graph.nodes[e.source].id,
+        target: graph.nodes[e.target].id,
+        move: e.move
+      };
+    })
+    showGraph(graph);
+  }
 }
 
 const viewConfig = function(s) {
